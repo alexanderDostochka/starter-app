@@ -1,14 +1,16 @@
 import {useAuth0} from 'react-native-auth0/';
+import {MD2Colors} from 'react-native-paper';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {ROUTE_HOME, ROUTE_LOGIN} from './routes';
+import {ROUTE_HOME, ROUTE_LOGIN, ROUTE_MAP} from './routes';
 import LoginScreen from '../screens/login/login.screen';
 import GlobalLoader from '../components/globalLoader/globalLoader.component';
+import {RootStackParamList} from './navigation.types';
 
 import HomeScreen from '../screens/home/home.screen';
-import {MD2Colors} from 'react-native-paper';
+import MapScreen from '../screens/map/map.screen';
 
 /* Create stack navigator */
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const Navigation = () => {
   const {user, isLoading} = useAuth0();
@@ -25,15 +27,20 @@ const Navigation = () => {
       {loggedIn ? (
         <Stack.Group
           screenOptions={{
-            contentStyle: {paddingLeft: 20, paddingRight: 20},
             statusBarColor: 'transparent',
             statusBarStyle: 'light',
+            headerTintColor: 'white',
             statusBarTranslucent: true,
             headerTitleAlign: 'center',
             headerTitleStyle: {color: 'white'},
             headerStyle: {backgroundColor: MD2Colors.grey800},
           }}>
-          <Stack.Screen name={ROUTE_HOME} component={HomeScreen} />
+          <Stack.Screen
+            name={ROUTE_HOME}
+            component={HomeScreen}
+            options={{contentStyle: {paddingLeft: 20, paddingRight: 20}}}
+          />
+          <Stack.Screen name={ROUTE_MAP} component={MapScreen} />
         </Stack.Group>
       ) : (
         <Stack.Group

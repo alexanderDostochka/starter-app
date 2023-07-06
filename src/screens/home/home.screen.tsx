@@ -1,12 +1,17 @@
 import {ScrollView, View} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import {Button, MD2Colors, Text} from 'react-native-paper';
 import styles from './home.styles';
 import Logo from '../../assets/logo.svg';
 import {words} from '../../constants/words';
 import {useAuth0} from 'react-native-auth0';
 import {useCallback, useState} from 'react';
+import {ROUTE_MAP} from '../../navigation/routes';
+import {HomeScreenNavigationProp} from '../../navigation/navigation.types';
 
 const HomeScreen = () => {
+  const navigation = useNavigation<HomeScreenNavigationProp>();
+
   const {user, clearSession} = useAuth0();
   const [loader, setLoader] = useState<boolean>(false);
 
@@ -19,6 +24,10 @@ const HomeScreen = () => {
     } finally {
       setLoader(false);
     }
+  }, []);
+
+  const gotoMapScreen = useCallback(() => {
+    navigation.navigate(ROUTE_MAP);
   }, []);
 
   return (
@@ -35,7 +44,7 @@ const HomeScreen = () => {
             style={styles.button}
             mode="contained"
             buttonColor={MD2Colors.grey800}
-            onPress={() => {}}>
+            onPress={gotoMapScreen}>
             {words.map}
           </Button>
           <Button
