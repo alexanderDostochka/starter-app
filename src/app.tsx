@@ -1,9 +1,12 @@
 import {NavigationContainer} from '@react-navigation/native';
+import {PaperProvider} from 'react-native-paper';
 import Navigation from './navigation/navigation';
 
 const App = () => (
   <NavigationContainer>
-    <Navigation />
+    <PaperProvider>
+      <Navigation />
+    </PaperProvider>
   </NavigationContainer>
 );
 

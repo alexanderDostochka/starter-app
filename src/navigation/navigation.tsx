@@ -6,8 +6,12 @@ import LoginScreen from '../screens/login/login.screen';
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => (
-  <Stack.Navigator initialRouteName={ROUTE_LOGIN}>
-    <Stack.Screen name={ROUTE_LOGIN} component={LoginScreen} />
+  <Stack.Navigator
+    initialRouteName={ROUTE_LOGIN}
+    screenOptions={{contentStyle: {backgroundColor: 'white'}}}>
+    <Stack.Group screenOptions={{headerShown: false}}>
+      <Stack.Screen name={ROUTE_LOGIN} component={LoginScreen} />
+    </Stack.Group>
   </Stack.Navigator>
 );
 
