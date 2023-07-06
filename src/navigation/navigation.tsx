@@ -5,6 +5,7 @@ import LoginScreen from '../screens/login/login.screen';
 import GlobalLoader from '../components/globalLoader/globalLoader.component';
 
 import HomeScreen from '../screens/home/home.screen';
+import {MD2Colors} from 'react-native-paper';
 
 /* Create stack navigator */
 const Stack = createNativeStackNavigator();
@@ -22,11 +23,23 @@ const Navigation = () => {
       initialRouteName={ROUTE_LOGIN}
       screenOptions={{contentStyle: {backgroundColor: 'white'}}}>
       {loggedIn ? (
-        <Stack.Group>
+        <Stack.Group
+          screenOptions={{
+            contentStyle: {paddingLeft: 20, paddingRight: 20},
+            statusBarColor: 'transparent',
+            statusBarStyle: 'light',
+            statusBarTranslucent: true,
+            headerTitleAlign: 'center',
+            headerTitleStyle: {color: 'white'},
+            headerStyle: {backgroundColor: MD2Colors.grey800},
+          }}>
           <Stack.Screen name={ROUTE_HOME} component={HomeScreen} />
         </Stack.Group>
       ) : (
-        <Stack.Group screenOptions={{headerShown: false}}>
+        <Stack.Group
+          screenOptions={{
+            headerShown: false,
+          }}>
           <Stack.Screen name={ROUTE_LOGIN} component={LoginScreen} />
         </Stack.Group>
       )}
