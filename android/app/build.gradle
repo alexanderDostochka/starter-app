@@ -101,6 +101,9 @@ android {
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
+    defaultConfig {
+        manifestPlaceholders = [auth0Domain: "dev-xaw00i-e.us.auth0.com", auth0Scheme: "${applicationId}"]
+    }
 }
 
 dependencies {
