@@ -6,7 +6,7 @@ import Logo from '../../assets/logo.svg';
 import {words} from '../../constants/words';
 import {useAuth0} from 'react-native-auth0';
 import {useCallback, useState} from 'react';
-import {ROUTE_MAP} from '../../navigation/routes';
+import {ROUTE_MAP, ROUTE_URQL} from '../../navigation/routes';
 import {HomeScreenNavigationProp} from '../../navigation/navigation.types';
 
 const HomeScreen = () => {
@@ -26,9 +26,8 @@ const HomeScreen = () => {
     }
   }, []);
 
-  const gotoMapScreen = useCallback(() => {
-    navigation.navigate(ROUTE_MAP);
-  }, []);
+  const gotoMapScreen = useCallback(() => navigation.navigate(ROUTE_MAP), []);
+  const gotoUrqlScreen = useCallback(() => navigation.navigate(ROUTE_URQL), []);
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -51,7 +50,8 @@ const HomeScreen = () => {
             disabled={loader}
             style={styles.button}
             mode="contained"
-            buttonColor={MD2Colors.grey800}>
+            buttonColor={MD2Colors.grey800}
+            onPress={gotoUrqlScreen}>
             {words.urql}
           </Button>
         </View>
