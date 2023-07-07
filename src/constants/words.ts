@@ -4,8 +4,10 @@ export const words = {
   map: 'Map',
   urql: 'Urql',
   logout: 'Logout',
-  title: "Title",
-  director: "Director",
-  releaseDate: "Release Date",
-  urqlDescription: "Random data from an open GraphQL API"
+  title: 'Title',
+  director: 'Director',
+  releaseDate: 'Release Date',
+  urqlDescription: 'Random data from an open GraphQL API',
+  errorLoadGQLData: 'Error loading GQL data',
+  emptyData: 'Empty data',
 };

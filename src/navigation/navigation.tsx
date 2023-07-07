@@ -21,11 +21,14 @@ const Navigation = () => {
 
   if (isLoading) return <GlobalLoader />;
 
-  // TODO: Need refactor.
+  // TODO: Need refactor. Move to constants
   return (
     <Stack.Navigator
       initialRouteName={ROUTE_LOGIN}
-      screenOptions={{contentStyle: {backgroundColor: 'white'}}}>
+      screenOptions={{
+        contentStyle: {backgroundColor: 'white'},
+        animation: 'none',
+      }}>
       {loggedIn ? (
         <Stack.Group
           screenOptions={{
