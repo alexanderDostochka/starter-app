@@ -5,5 +5,9 @@ export default StyleSheet.create({
     padding: 20,
     marginBottom: 20,
     textAlign: 'center',
-  }
+  },
+  emptyMessage: {
+    marginTop: 15,
+    textAlign: 'center',
+  },
 });

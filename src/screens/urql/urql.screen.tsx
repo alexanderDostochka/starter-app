@@ -1,4 +1,4 @@
-import {ScrollView} from 'react-native';
+import {FlatList, ScrollView} from 'react-native';
 import {DataTable, MD2Colors, Text} from 'react-native-paper';
 import {useQuery} from 'urql';
 import GlobalLoader from '../../components/globalLoader/globalLoader.component';
@@ -20,15 +20,17 @@ const TodosQuery = graphql(`
   }
 `);
 
+type Film = {
+  id: string;
+  director: string;
+  title: string;
+  releaseDate: string;
+};
+
 const UrqlScreen = () => {
   const [result] = useQuery<{
     allFilms: {
-      films: Array<{
-        id: string;
-        director: string;
-        title: string;
-        releaseDate: string;
-      }>;
+      films: Array<Film>;
     };
   }>({
     query: TodosQuery,
@@ -47,29 +49,35 @@ const UrqlScreen = () => {
 
   const films = data?.allFilms.films;
 
-  if (!films || films.length === 0)
-    return <ErrorScreen message={words.emptyData} />;
+  const renderItem = ({item}: {item: Film}) => (
+    <DataTable.Row key={item?.id}>
+      <DataTable.Cell>{item?.title}</DataTable.Cell>
+      <DataTable.Cell>{item?.director}</DataTable.Cell>
+      <DataTable.Cell>{item?.releaseDate}</DataTable.Cell>
+    </DataTable.Row>
+  );
 
   return (
-    <ScrollView>
-      <Text variant="headlineSmall" style={styles.description}>
-        {words.urqlDescription}
-      </Text>
-      <DataTable>
-        <DataTable.Header>
-          <DataTable.Title>{words.title}</DataTable.Title>
-          <DataTable.Title>{words.director}</DataTable.Title>
-          <DataTable.Title>{words.releaseDate}</DataTable.Title>
-        </DataTable.Header>
-        {films.map(item => (
-          <DataTable.Row key={item?.id}>
-            <DataTable.Cell>{item?.title}</DataTable.Cell>
-            <DataTable.Cell>{item?.director}</DataTable.Cell>
-            <DataTable.Cell>{item?.releaseDate}</DataTable.Cell>
-          </DataTable.Row>
-        ))}
-      </DataTable>
-    </ScrollView>
+    <FlatList
+      data={films}
+      keyExtractor={item => item?.id}
+      renderItem={renderItem}
+      ListHeaderComponent={() => (
+        <>
+          <Text variant="headlineSmall" style={styles.description}>
+            {words.urqlDescription}
+          </Text>
+          <DataTable.Header>
+            <DataTable.Title>{words.title}</DataTable.Title>
+            <DataTable.Title>{words.director}</DataTable.Title>
+            <DataTable.Title>{words.releaseDate}</DataTable.Title>
+          </DataTable.Header>
+        </>
+      )}
+      ListEmptyComponent={() => (
+        <Text style={styles.emptyMessage}>{words.emptyData}</Text>
+      )}
+    />
   );
 };
 
